@@ -7,7 +7,7 @@ from projectq.ops import ClassicalInstructionGate
 from projectq.types import Qureg
 from projectq.cengines import BasicEngine
 
-from projqext.projectq.cengines._permutation._permutation_relations._controlled_gate import permute_cnot
+from projqext.projectq.cengines._permutation_engine._permutation_relations._controlled_gate import permute_cnot
 
 _PRECISION = 10**-5
 

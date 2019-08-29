@@ -1,9 +1,6 @@
-from projectq.cengines import BasicEngine
-from projectq.ops import ClassicalInstructionGate, FlushGate, FastForwardingGate, NotMergeable, MeasureGate, \
-    AllocateQubitGate, AllocateDirtyQubitGate
+from projectq.ops import ClassicalInstructionGate, FastForwardingGate
 
-from projqext.projectq.cengines._permutation._permutation_rules import BasePermutationRules
-from projqext.projectq.cengines._permutation._permute_base import PermuteBase
+from projqext.projectq.cengines import BasePermutationRules, PermuteBase
 
 
 class PermuteCliffordBack(PermuteBase):

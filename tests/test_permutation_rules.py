@@ -3,7 +3,7 @@ import cmath
 import pytest
 
 
-from projqext.projectq.cengines._permutation._linkedlist import DoubleLinkedList
+from projqext.projectq.cengines._permutation_engine._linkedlist import DoubleLinkedList
 from projqext.projectq.cengines import BasePermutationRules
 
 _PRECISION = 10**-5

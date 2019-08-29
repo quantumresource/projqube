@@ -10,7 +10,6 @@ import projectq.ops as gates
 from projectq.ops._qubit_operator import _PAULI_OPERATOR_PRODUCTS
 
 
-
 from . import _permutation_error
 
 #needed for the comparison of angles

@@ -1,7 +1,9 @@
 import projectq.ops as gates
 from projectq.cengines import BasicEngine, LastEngineException
 
-from projqext.projectq.cengines._permutation._permutation_relations import _GATE_TO_INFO
+import projqext
+import projqext.projectq.ops
+from projqext.projectq.cengines._permutation_engine._permutation_relations import _GATE_TO_INFO
 
 
 class OpenSurgeryExporter(BasicEngine):
@@ -50,7 +52,7 @@ class OpenSurgeryExporter(BasicEngine):
                 self._remap[cmd.qubits[0][0].id] = self._logical_qubit_count
                 self._logical_qubit_count += 1
                 self._command_buffer.append(cmd)
-            elif (isinstance(cmd.gate, gates.ParityMeasurementGate)):
+            elif (isinstance(cmd.gate, projqext.projectq.ops.ParityMeasurementGate)):
                 self._command_buffer.append(cmd)
             elif (isinstance(cmd.gate, gates.SGate)):
                 self._command_buffer.append(cmd)
@@ -116,7 +118,7 @@ class OpenSurgeryExporter(BasicEngine):
                 if (isinstance(cmd.gate, gates.AllocateQubitGate)):
                     # already done in the beginning
                     continue
-                elif (isinstance(cmd.gate, gates.ParityMeasurementGate)):
+                elif (isinstance(cmd.gate, projqext.projectq.ops.ParityMeasurementGate)):
                     qubits = ""
                     for basis in cmd.gate._bases:
                         qubits += " " + str(self._remap[cmd.qubits[0][basis[0]].id])

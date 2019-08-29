@@ -3,8 +3,8 @@ import cmath
 import pytest
 import projectq.ops as gates
 
-from projqext.projectq.cengines._permutation._permutation_relations._permutation_error import PermutationRuleDoesNotExist
-from projqext.projectq.cengines._permutation._permutation_relations import _rotations
+from projqext.projectq.cengines._permutation_engine._permutation_relations._permutation_error import PermutationRuleDoesNotExist
+from projqext.projectq.cengines._permutation_engine._permutation_relations import _rotations
 
 _PRECISION = 10**-5
 

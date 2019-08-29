@@ -1,4 +1,4 @@
-from projectq.ops import ClassicalInstructionGate, FlushGate, FastForwardingGate, NotMergeable, MeasureGate, \
+from projectq.ops import ClassicalInstructionGate, FastForwardingGate, \
     AllocateQubitGate, AllocateDirtyQubitGate
 
 from projqext.projectq.cengines import BasePermutationRules, PermuteBase

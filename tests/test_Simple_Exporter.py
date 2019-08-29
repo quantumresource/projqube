@@ -1,4 +1,5 @@
-from projqext.projectq.backends import OpenSurgeryExporter
+from projqext.projectq.cengines import OpenSurgeryExporter
+
 import projectq
 import projectq.ops as gates
 import cmath

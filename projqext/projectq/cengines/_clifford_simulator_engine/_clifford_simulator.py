@@ -1,9 +1,10 @@
-import projectq.ops as gates
 import cmath
+
+import projectq.ops as gates
 from projectq.types import BasicQubit
 
 
-from projqext.projectq.cengines._permutation._permutation_relations import _GATE_TO_INFO
+from projqext.projectq.cengines._permutation_engine._permutation_relations import _GATE_TO_INFO
 
 _CONTROLLED_GATE_ = [("XI","XX",1), ("XX","XI",1), ("XY", "YZ", 1), ("XZ", "YY", -1),
 					("II","II",1), ("IX","IX",1), ("IY","ZY",1), ("IZ","ZZ",1),

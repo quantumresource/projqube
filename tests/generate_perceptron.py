@@ -1,7 +1,7 @@
 import projectq
 from projectq.ops import *
 
-from projqext.projectq.backends import OpenSurgeryExporter
+from projqext.projectq.cengines import OpenSurgeryExporter
 from projqext.projectq.setups.surface_codes import lattice_surgery
 
 

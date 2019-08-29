@@ -1,14 +1,14 @@
+from projectq.cengines import BasicEngine
 
-from projectq.cengines import (BasicEngine,
-                               ForwarderEngine,
-                               CommandModifier)
 import projectq.ops as gates
+
+import projqext.projectq.ops
 
 
 class BasisRotation(BasicEngine):
     """
     This engine transforms the Basis of TimeEvolution and ParityMeasurementGate operators
-    to the Z basis, by inserting appropriate basis tranformation operations
+    to the Z basis, by inserting appropriate basis transformation operations
     """
     def __init__(self):
         BasicEngine.__init__(self)
@@ -33,7 +33,7 @@ class BasisRotation(BasicEngine):
         """
         self.rotation(cmd.gate._bases, cmd)
         new_bases = list((basis[0],"Z") for basis in cmd.gate._bases)
-        new_cmd = gates.ParityMeasurementGate(new_bases).generate_command(cmd.qubits[0])
+        new_cmd = projqext.projectq.ops.ParityMeasurementGate(new_bases).generate_command(cmd.qubits[0])
         self.send([new_cmd])
         self.dagger_rotation(cmd.gate._bases, cmd)
 
@@ -69,7 +69,7 @@ class BasisRotation(BasicEngine):
             if(isinstance(cmd.gate, gates.TimeEvolution)):
                 self.TimeEvolution(cmd)
 
-            elif(isinstance(cmd.gate, gates.ParityMeasurementGate)):
+            elif(isinstance(cmd.gate, projqext.projectq.ops.ParityMeasurementGate)):
                 self.ParityMeasurementGate(cmd)
 
             else:

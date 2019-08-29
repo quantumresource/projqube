@@ -1,17 +1,11 @@
 from projectq.cengines import BasicEngine
 import projectq.ops as gates
 
-from projqext.projectq.cengines import BasePermutationRules, CliffordSimulator
+import projqext.projectq.ops
+from projqext.projectq.cengines import CliffordSimulator
+from projqext.projectq.cengines import BasePermutationRules
 
-class CliffordEngine(BasicEngine):
-    def __init__(self):
-        super(CliffordEngine, self).__init__()
-        self._simulator = CliffordSimulator()
-        self._gates = []
-
-
-
-class MultiqubitMeasurementCliffordEngine(CliffordEngine):
+class MultiqubitMeasurementCliffordEngine(BasicEngine):
     """
     Performs Simulation of quantum circuits using the Stabilizer formalism.
     Currently non-Clifford gates are not supported.
@@ -19,13 +13,14 @@ class MultiqubitMeasurementCliffordEngine(CliffordEngine):
     def __init__(self):
         super(MultiqubitMeasurementCliffordEngine, self).__init__()
         self._simulator = CliffordSimulator()
+        self._gates = []
 
     def perform_simulation(self):
         for gate in reversed(self._gates):
             self._simulator.apply_operation(gates.get_inverse(gate))
 
         for bases, qubits, parity in self._simulator.return_stabilizers():
-            cmd = gates.ParityMeasurementGate(bases,parity).generate_command(qubits)
+            cmd = projqext.projectq.ops.ParityMeasurementGate(bases,parity).generate_command(qubits)
             self.send([cmd])
 
     def receive(self, command_list):
@@ -45,7 +40,7 @@ class MultiqubitMeasurementCliffordEngine(CliffordEngine):
                 self._simulator.add_qubit_to_dict(cmd.qubits[0])
                 self.send([cmd]) # send gate along
             elif (isinstance(cmd.gate, gates.MeasureGate)):
-                self._simulator.add_stabilizer([(cmd.qubits[0],"Z")])
+                self._simulator.add_stabilizer([(cmd.qubits[0], "Z")])
             elif (isinstance(cmd.gate, gates.ClassicalInstructionGate)):
                 return
             elif (BasePermutationRules.is_clifford(cmd.gate)):

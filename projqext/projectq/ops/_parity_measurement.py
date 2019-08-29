@@ -1,11 +1,13 @@
 import projectq
 
-class ParityMeasurementGate(projectq.ops.MeasureGate):
+import projectq.ops as gates
+
+class ParityMeasurementGate(gates.MeasureGate):
     def __init__(self, bases, is_inverted = False):
         """
         
         """
-        super(projectq.ops.MeasureGate, self).__init__()
+        super(gates.MeasureGate, self).__init__()
         self._bases = []
         self._is_inverted = is_inverted
 
@@ -64,13 +66,13 @@ class ParityMeasurementGate(projectq.ops.MeasureGate):
         # Perform X,Y,Z measurement if ParityMeasurement acts only on one qubit
         if len(self._bases) == 1:
             if self._bases[0][1] == "X":
-                projectq.ops.H | qubits[0][self._bases[0][0]]
-                projectq.ops.Measure | qubits[0][self._bases[0][0]]
+                gates.H | qubits[0][self._bases[0][0]]
+                gates.Measure | qubits[0][self._bases[0][0]]
             elif self._bases[0][1] == "Y":
-                projectq.ops.S * projectq.ops.H | qubits[0][self._bases[0][0]]
-                projectq.ops.Measure | qubits[0][self._bases[0][0]]
+                gates.S * gates.H | qubits[0][self._bases[0][0]]
+                gates.Measure | qubits[0][self._bases[0][0]]
             elif self._bases[0][1] == "Z":
-                projectq.ops.Measure | qubits[0][self._bases[0][0]]
+                gates.Measure | qubits[0][self._bases[0][0]]
             return
 
         # Create new ParityMeasurement gate with rescaled qubit indices in
@@ -84,4 +86,4 @@ class ParityMeasurementGate(projectq.ops.MeasureGate):
         new_paritymeasurement = ParityMeasurementGate(new_bases, self._is_inverted)
         # Apply new gate
         cmd = new_paritymeasurement.generate_command(new_qubits)
-        projectq.ops.apply_command(cmd)
+        gates.apply_command(cmd)

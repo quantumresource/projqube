@@ -1,6 +1,5 @@
 from projectq.setups import restrictedgateset
 import projectq.ops as gates
-from projectq.cengines import LocalOptimizer, TagRemover
 
 from projqext.projectq.cengines import BasisRotation, PermutePi4Front, MultiqubitMeasurementCliffordEngine
 
