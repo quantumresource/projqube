@@ -63,9 +63,12 @@ def test_operation():
 
 def test_MultiqubitMeasurementCliffordEngine():
 	debugger = A()
+
 	engine_list = [MultiqubitMeasurementCliffordEngine()]
 	eng = projectq.MainEngine(engine_list=engine_list)
+
 	engine_list[0].next_engine = debugger
+
 	qubit1 = eng.allocate_qubit()
 	qubit2 = eng.allocate_qubit()
 	projectq.ops.H | qubit1
@@ -77,8 +80,6 @@ def test_MultiqubitMeasurementCliffordEngine():
 	print(debugger.commands[2].gate._bases)
 	print(debugger.commands[3].gate._bases)
 	assert(False)
-
-
 
 
 def test_CNOT():

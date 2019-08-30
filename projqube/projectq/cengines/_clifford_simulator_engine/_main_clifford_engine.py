@@ -1,7 +1,8 @@
-from projectq.cengines import BasicEngine
 import projectq.ops as gates
-
 import projqube.projectq.ops
+
+from projectq.cengines import BasicEngine
+
 from projqube.projectq.cengines import CliffordSimulator
 from projqube.projectq.cengines import BasePermutationRules
 
