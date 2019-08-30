@@ -73,37 +73,37 @@ class OpenSurgeryExporter(BasicEngine):
         return
 
 
-    def _basis_trafo(self, info, cmd, fout):
-        """
-        Instead of rotating the boundaries o a patch on the surgery map, a Hadamard gate is applied to the patch.
-        This comes in pair with _basis_trafo_back
-        :param info:
-        :param cmd: the gate command
-        :param fout: output stream
-        :return:
-        """
-        for basis in info[0]:
-            if(basis[1]) == "X":
-                fout.write("H " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
-            if(basis[1]) == "Y":
-                fout.write("H " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
-                fout.write("S " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
-
-    def _basis_trafo_back(self, info, cmd, fout):
-        """
-           Instead of rotating the boundaries o a patch on the surgery map, a Hadamard gate is applied to the patch.
-           This comes in pair with _basis_trafo
-           :param info:
-           :param cmd: the gate command
-           :param fout: output stream
-           :return:
-        """
-        for basis in info[0]:
-            if(basis[1]) == "X":
-                fout.write("H " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
-            if(basis[1]) == "Y":
-                fout.write("S " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
-                fout.write("H " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
+    # def _basis_trafo(self, info, cmd, fout):
+    #     """
+    #     Instead of rotating the boundaries o a patch on the surgery map, a Hadamard gate is applied to the patch.
+    #     This comes in pair with _basis_trafo_back
+    #     :param info:
+    #     :param cmd: the gate command
+    #     :param fout: output stream
+    #     :return:
+    #     """
+    #     for basis in info[0]:
+    #         if(basis[1]) == "X":
+    #             fout.write("H " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
+    #         if(basis[1]) == "Y":
+    #             fout.write("H " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
+    #             fout.write("S " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
+    #
+    # def _basis_trafo_back(self, info, cmd, fout):
+    #     """
+    #        Instead of rotating the boundaries o a patch on the surgery map, a Hadamard gate is applied to the patch.
+    #        This comes in pair with _basis_trafo
+    #        :param info:
+    #        :param cmd: the gate command
+    #        :param fout: output stream
+    #        :return:
+    #     """
+    #     for basis in info[0]:
+    #         if(basis[1]) == "X":
+    #             fout.write("H " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
+    #         if(basis[1]) == "Y":
+    #             fout.write("S " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
+    #             fout.write("H " + str(self._remap[cmd.qubits[0][basis[0]].id]) + "\n")
 
 
     def generate_layout(self):
@@ -121,7 +121,7 @@ class OpenSurgeryExporter(BasicEngine):
                         qubits += " " + str(self._remap[cmd.qubits[0][basis[0]].id])
 
                     # transform to all Z measurements
-                    self._basis_trafo([cmd.gate._bases], cmd, fout)
+                    # self._basis_trafo([cmd.gate._bases], cmd, fout)
 
                     if(len(cmd.gate._bases) == 1):
                         fout.write("MZ" + qubits + "\n")
@@ -146,7 +146,7 @@ class OpenSurgeryExporter(BasicEngine):
                     info = _GATE_TO_INFO[type(cmd.gate)](cmd.gate)
 
                     # transform to all Z
-                    self._basis_trafo(info, cmd, fout)
+                    # self._basis_trafo(info, cmd, fout)
 
                     # at this point it is a Z rotation of pi/4
                     fout.write("NEED A\n")
@@ -160,7 +160,7 @@ class OpenSurgeryExporter(BasicEngine):
 
                     # done with the T gate (Z pi/4)
                     # and back to whatever it was before the trafo
-                    self._basis_trafo_back(info, cmd, fout)
+                    # self._basis_trafo_back(info, cmd, fout)
 
                 else:
                     raise TypeError("Non supported gate for the surface"

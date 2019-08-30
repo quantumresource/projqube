@@ -1,1 +1,1 @@
-from ._openSurgeryExporter import OpenSurgeryExporter
+from ._open_surgery_exporter import OpenSurgeryExporter

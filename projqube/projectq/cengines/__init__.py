@@ -9,4 +9,4 @@ from ._permutation_engine._permute_clifford_back import PermuteCliffordBack
 from ._clifford_simulator_engine._clifford_simulator import CliffordSimulator
 from ._clifford_simulator_engine._main_clifford_engine import MultiqubitMeasurementCliffordEngine
 #
-from ._open_surgery_exporter._openSurgeryExporter import OpenSurgeryExporter
+from ._open_surgery_exporter._open_surgery_exporter import OpenSurgeryExporter

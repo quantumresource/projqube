@@ -5,13 +5,21 @@ import projectq.ops as gates
 import cmath
 import os
 
+from projqube.projectq.ops import ParityMeasurementGate
+from projqube.projectq.setups.surface_codes import lattice_surgery
 
-def test_simple():
-    eng = projectq.MainEngine(engine_list = [], backend=OpenSurgeryExporter(output="test_simple_case1"))
+
+def test_simple1():
+    engines = lattice_surgery.OpenSurgeryExporterEngineList()
+    eng = projectq.MainEngine(engine_list = engines, backend=OpenSurgeryExporter(output="test_simple_case1"))
+
     qubit1 = eng.allocate_qubit()
     qubit2 = eng.allocate_qubit()
+
     gates.T | qubit2
-    gates.ParityMeasurementGate("Z0 X1") | qubit1+qubit2
+
+    ParityMeasurementGate("Z0 X1") | qubit1 + qubit2
+
     eng.flush()
     del qubit1
     del qubit2
@@ -57,6 +65,7 @@ def test_simple():
 
 def test_simple2():
     eng = projectq.MainEngine(engine_list = [], backend=OpenSurgeryExporter(output="test_simple_case2"))
+
     qubit1 = eng.allocate_qubit()
     qubit2 = eng.allocate_qubit()
     gates.TimeEvolution(- cmath.pi/8, gates.QubitOperator("Y0 X1")) | qubit1 + qubit2
@@ -117,3 +126,8 @@ def test_simple2():
         assert(line == "H 1")
 
     os.remove("test_simple_case2")
+
+
+if __name__ == '__main__':
+    test_simple1()
+    test_simple2()

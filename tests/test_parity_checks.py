@@ -5,6 +5,7 @@ from projectq.cengines import BasicEngine
 from projectq.cengines import AutoReplacer, DecompositionRuleSet, InstructionFilter
 
 from projqube.projectq.ops import ParityMeasurementGate
+import projqube.projectq.setups.decompositions
 
 class Debugger(BasicEngine):
 	def __init__(self):
@@ -41,8 +42,10 @@ def is_supported(eng, cmd):
 
 def test_decomposition():
 	a = Debugger()
-	decomp = DecompositionRuleSet(modules=[projectq.setups.decompositions.parity_measurement])
+	decomp = DecompositionRuleSet(modules=[projqube.projectq.setups.decompositions.parity_measurement])
+
 	engine_list = [AutoReplacer(decomp), InstructionFilter(is_supported), a]
+
 	eng = projectq.MainEngine(engine_list = engine_list, backend = CommandPrinter(accept_input=False))
 	q1 = eng.allocate_qubit()
 	q2 = eng.allocate_qubit()

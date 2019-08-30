@@ -154,7 +154,7 @@ def test_multiqubit_permutation_rules(linkedlist, eng):
 
 
     H = projectq.ops.QubitOperator
-    T = projectq.ops.TimeEvolution
+    T = projectq.ops.send_time_evolution
 
     left = T(- cmath.pi/4, H("X0 Z1 Z2"))
     right = T(- cmath.pi/4, H("Z0 Z1 Y2"))

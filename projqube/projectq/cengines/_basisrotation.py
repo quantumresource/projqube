@@ -12,31 +12,42 @@ class BasisRotation(BasicEngine):
         BasicEngine.__init__(self)
 
     
-    def TimeEvolution(self, cmd):
+    def send_time_evolution(self, cmd):
         """
         Handles the basis transformation for TimeEvolution operators
         """
         assert(isinstance(cmd.gate.hamiltonian, gates.QubitOperator))
+
+        # rotate the existing bases
         bases = list(cmd.gate.hamiltonian.terms.keys())[0]
-        self.rotation(bases, cmd)
+        self.send_rotation(bases, cmd)
+
+        # transform all the basis in Z
         new_bases = tuple(((basis[0],"Z") for basis in bases))
         new_cmd = gates.TimeEvolution(cmd.gate.time, gates.QubitOperator(new_bases)).generate_command(cmd.qubits[0])
         self.send([new_cmd])
-        self.dagger_rotation(bases, cmd)
+
+        # rotate back to original bases
+        self.send_dagger_rotation(bases, cmd)
 
 
-    def ParityMeasurementGate(self, cmd):
+    def send_parity_measurement_gate(self, cmd):
         """
         Handles the basis transformation for ParityMeasurementGates
         """
-        self.rotation(cmd.gate._bases, cmd)
+        # rotate the existing bases
+        self.send_rotation(cmd.gate._bases, cmd)
+
+        # transform all the basis in Z
         new_bases = list((basis[0], "Z") for basis in cmd.gate._bases)
         new_cmd = projqube.projectq.ops.ParityMeasurementGate(new_bases).generate_command(cmd.qubits[0])
         self.send([new_cmd])
-        self.dagger_rotation(cmd.gate._bases, cmd)
+
+        # rotate back to original bases
+        self.send_dagger_rotation(cmd.gate._bases, cmd)
 
 
-    def rotation(self, bases, cmd):
+    def send_rotation(self, bases, cmd):
         """
         Handles general basis rotations using a list of bases
         """
@@ -48,7 +59,7 @@ class BasisRotation(BasicEngine):
                 self.send([gates.H.generate_command(cmd.qubits[0][basis[0]])])
 
 
-    def dagger_rotation(self, bases, cmd):
+    def send_dagger_rotation(self, bases, cmd):
         """
         Handles general basis rotations using a list of bases
         """
@@ -65,10 +76,10 @@ class BasisRotation(BasicEngine):
         for cmd in command_list:
 
             if(isinstance(cmd.gate, gates.TimeEvolution)):
-                self.TimeEvolution(cmd)
+                self.send_time_evolution(cmd)
 
             elif(isinstance(cmd.gate, projqube.projectq.ops.ParityMeasurementGate)):
-                self.ParityMeasurementGate(cmd)
+                self.send_parity_measurement_gate(cmd)
 
             else:
                 #just send the command along

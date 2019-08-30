@@ -20,8 +20,6 @@ from projectq.cengines import DecompositionRule
 from projectq.meta import Compute, get_control_count, Uncompute
 from projectq.ops import CNOT, H, Z, Y, S, Toffoli
 
-
-
 def _decompose_cz(cmd):
     """ Decompose CNOT gates. """
     ctrl = cmd.control_qubits
