@@ -1,4 +1,6 @@
-# ProjQUBE is a collection of extensions to ProjectQ
+# <img src="projqube.png" alt="projqube" style="width:100px;"/>
+
+# ProjQUBE_alpha is a collection of extensions to ProjectQ
 
 It was developed by Daniel Herr and includes:
 * Clifford circuit simulator
