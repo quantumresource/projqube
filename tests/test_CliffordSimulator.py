@@ -1,7 +1,7 @@
 import pytest
 import projectq
 
-from projqext.projectq.cengines import CliffordSimulator, MultiqubitMeasurementCliffordEngine
+from projqube.projectq.cengines import CliffordSimulator, MultiqubitMeasurementCliffordEngine
 
 
 class A:

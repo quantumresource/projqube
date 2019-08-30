@@ -3,8 +3,8 @@ import cmath
 import pytest
 
 
-from projqext.projectq.cengines._permutation_engine._linkedlist import DoubleLinkedList
-from projqext.projectq.cengines import BasePermutationRules
+from projqube.projectq.cengines._permutation_engine._linkedlist import DoubleLinkedList
+from projqube.projectq.cengines import BasePermutationRules
 
 _PRECISION = 10**-5
 

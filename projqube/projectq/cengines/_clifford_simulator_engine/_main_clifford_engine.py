@@ -1,9 +1,9 @@
 from projectq.cengines import BasicEngine
 import projectq.ops as gates
 
-import projqext.projectq.ops
-from projqext.projectq.cengines import CliffordSimulator
-from projqext.projectq.cengines import BasePermutationRules
+import projqube.projectq.ops
+from projqube.projectq.cengines import CliffordSimulator
+from projqube.projectq.cengines import BasePermutationRules
 
 class MultiqubitMeasurementCliffordEngine(BasicEngine):
     """
@@ -20,7 +20,7 @@ class MultiqubitMeasurementCliffordEngine(BasicEngine):
             self._simulator.apply_operation(gates.get_inverse(gate))
 
         for bases, qubits, parity in self._simulator.return_stabilizers():
-            cmd = projqext.projectq.ops.ParityMeasurementGate(bases,parity).generate_command(qubits)
+            cmd = projqube.projectq.ops.ParityMeasurementGate(bases, parity).generate_command(qubits)
             self.send([cmd])
 
     def receive(self, command_list):

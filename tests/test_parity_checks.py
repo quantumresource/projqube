@@ -4,9 +4,7 @@ from projectq.backends import CommandPrinter
 from projectq.cengines import BasicEngine
 from projectq.cengines import AutoReplacer, DecompositionRuleSet, InstructionFilter
 
-from projqext.projectq.ops import ParityMeasurementGate
-
-
+from projqube.projectq.ops import ParityMeasurementGate
 
 class Debugger(BasicEngine):
 	def __init__(self):

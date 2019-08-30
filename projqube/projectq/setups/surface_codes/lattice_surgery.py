@@ -1,7 +1,7 @@
 from projectq.setups import restrictedgateset
 import projectq.ops as gates
 
-from projqext.projectq.cengines import BasisRotation, PermutePi4Front, MultiqubitMeasurementCliffordEngine
+from projqube.projectq.cengines import BasisRotation, PermutePi4Front, MultiqubitMeasurementCliffordEngine
 
 def get_engine_list():
 	# lets start from a circuit that has CNOT, Pauli, S and T and time evolution

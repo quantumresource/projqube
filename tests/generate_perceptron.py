@@ -1,8 +1,8 @@
 import projectq
 from projectq.ops import *
 
-from projqext.projectq.cengines import OpenSurgeryExporter
-from projqext.projectq.setups.surface_codes import lattice_surgery
+from projqube.projectq.cengines import OpenSurgeryExporter
+from projqube.projectq.setups.surface_codes import lattice_surgery
 
 
 def generate_instructions():

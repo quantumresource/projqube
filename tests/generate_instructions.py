@@ -3,8 +3,8 @@ from projectq.ops import *
 
 from projectq.cengines import LocalOptimizer
 
-from projqext.projectq.cengines import PermutePi4Front, MultiqubitMeasurementCliffordEngine
-from projqext.projectq.cengines import OpenSurgeryExporter
+from projqube.projectq.cengines import PermutePi4Front, MultiqubitMeasurementCliffordEngine
+from projqube.projectq.cengines import OpenSurgeryExporter
 
 def generate_instructions():
 	engines3 = [projectq.cengines.TagRemover(),PermutePi4Front(), MultiqubitMeasurementCliffordEngine()]

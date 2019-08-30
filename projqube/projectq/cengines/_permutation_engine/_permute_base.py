@@ -2,7 +2,7 @@
 from projectq.cengines import BasicEngine
 from projectq.ops import ClassicalInstructionGate, FlushGate, FastForwardingGate, NotMergeable, MeasureGate, AllocateQubitGate, AllocateDirtyQubitGate
 
-from projqext.projectq.cengines._permutation_engine._linkedlist import DoubleLinkedList
+from projqube.projectq.cengines._permutation_engine._linkedlist import DoubleLinkedList
 
 class PermuteBase(BasicEngine):
     """

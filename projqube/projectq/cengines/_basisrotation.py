@@ -1,9 +1,7 @@
 from projectq.cengines import BasicEngine
-
 import projectq.ops as gates
 
-import projqext.projectq.ops
-
+import projqube.projectq.ops
 
 class BasisRotation(BasicEngine):
     """
@@ -32,8 +30,8 @@ class BasisRotation(BasicEngine):
         Handles the basis transformation for ParityMeasurementGates
         """
         self.rotation(cmd.gate._bases, cmd)
-        new_bases = list((basis[0],"Z") for basis in cmd.gate._bases)
-        new_cmd = projqext.projectq.ops.ParityMeasurementGate(new_bases).generate_command(cmd.qubits[0])
+        new_bases = list((basis[0], "Z") for basis in cmd.gate._bases)
+        new_cmd = projqube.projectq.ops.ParityMeasurementGate(new_bases).generate_command(cmd.qubits[0])
         self.send([new_cmd])
         self.dagger_rotation(cmd.gate._bases, cmd)
 
@@ -69,7 +67,7 @@ class BasisRotation(BasicEngine):
             if(isinstance(cmd.gate, gates.TimeEvolution)):
                 self.TimeEvolution(cmd)
 
-            elif(isinstance(cmd.gate, projqext.projectq.ops.ParityMeasurementGate)):
+            elif(isinstance(cmd.gate, projqube.projectq.ops.ParityMeasurementGate)):
                 self.ParityMeasurementGate(cmd)
 
             else:

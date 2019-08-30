@@ -1,10 +1,13 @@
-# onlymeasurementscompiler
+# ProjQUBE is a collection of extensions to ProjectQ
 
-This tool was developed by Daniel Herr. It includes:
-* Clifford gate simulator
+It was developed by Daniel Herr and includes:
+* Clifford circuit simulator
 * Engine for gate permutations through the circuit
 * Exporter into OpenSurgery instructions
 
-The original repository (QC_benchmark) included ProjectQ code.
+The original repository (QC_benchmark) included ProjectQ code. This repository separated the extensions from ProjectQ, reorganised the code into packages and, where needed, extended it.
 
-This repository includes only the necessary files, and is arranged like an extension (projqext).
+The namespace projqube is organised similarly to the projectq namespace from the original codebase.
+For example, if the OpenSurgery exporter is needed, then ``projqube.projectq.cengines`` is the package for the ``OpenSurgeryExporter``
+
+More documentation: TODO

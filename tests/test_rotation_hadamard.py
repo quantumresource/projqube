@@ -1,5 +1,5 @@
 import cmath
-from projqext.projectq.cengines._permutation_engine._permutation_relations import _rotation_hadamard
+from projqube.projectq.cengines._permutation_engine._permutation_relations import _rotation_hadamard
 
 
 def test_rotation_hadamard():

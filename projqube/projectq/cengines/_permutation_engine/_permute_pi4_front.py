@@ -1,7 +1,7 @@
 from projectq.ops import ClassicalInstructionGate, FastForwardingGate, \
     AllocateQubitGate, AllocateDirtyQubitGate
 
-from projqext.projectq.cengines import BasePermutationRules, PermuteBase
+from projqube.projectq.cengines import BasePermutationRules, PermuteBase
 
 
 class PermutePi4Front(PermuteBase):

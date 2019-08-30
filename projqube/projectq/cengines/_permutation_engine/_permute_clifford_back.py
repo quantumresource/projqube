@@ -1,6 +1,6 @@
 from projectq.ops import ClassicalInstructionGate, FastForwardingGate
 
-from projqext.projectq.cengines import BasePermutationRules, PermuteBase
+from projqube.projectq.cengines import BasePermutationRules, PermuteBase
 
 
 class PermuteCliffordBack(PermuteBase):

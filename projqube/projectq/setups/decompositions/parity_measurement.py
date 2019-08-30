@@ -20,7 +20,7 @@ from projectq.cengines import DecompositionRule
 from projectq.meta import Control
 from projectq.ops import CNOT, S, X, H, get_inverse, Measure
 
-from projqext.projectq.ops import ParityMeasurementGate
+from projqube.projectq.ops import ParityMeasurementGate
 
 
 def _decompose_parity_measurement(cmd):

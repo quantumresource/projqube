@@ -1,7 +1,7 @@
 import projectq
 from projectq.ops import X, Y, Z, S, T, Rx, Ry, Rz, FlushGate
 
-from projqext.projectq.cengines import PermutePi4Front
+from projqube.projectq.cengines import PermutePi4Front
 
 
 class A:

@@ -1,9 +1,9 @@
 import projectq.ops as gates
 from projectq.cengines import BasicEngine, LastEngineException
 
-import projqext
-import projqext.projectq.ops
-from projqext.projectq.cengines._permutation_engine._permutation_relations import _GATE_TO_INFO
+import projqube
+import projqube.projectq.ops
+from projqube.projectq.cengines._permutation_engine._permutation_relations import _GATE_TO_INFO
 
 
 class OpenSurgeryExporter(BasicEngine):
@@ -11,13 +11,12 @@ class OpenSurgeryExporter(BasicEngine):
     Simple exporter that writes OpenSurgery instructions
     """
 
-    def __init__(self, output = "instructions", total_err_prob = 0.01):
-        # SurfaceCode_Base.__init__(self, total_err_prob)
+    def __init__(self, output = "instructions"):
         BasicEngine.__init__(self)
 
         self._output = output
         self._command_buffer = []
-        self._Tgate_count = 0
+        # self._Tgate_count = 0
         self._logical_qubit_count = 0
         self._remap = dict()
 
@@ -52,7 +51,7 @@ class OpenSurgeryExporter(BasicEngine):
                 self._remap[cmd.qubits[0][0].id] = self._logical_qubit_count
                 self._logical_qubit_count += 1
                 self._command_buffer.append(cmd)
-            elif (isinstance(cmd.gate, projqext.projectq.ops.ParityMeasurementGate)):
+            elif (isinstance(cmd.gate, projqube.projectq.ops.ParityMeasurementGate)):
                 self._command_buffer.append(cmd)
             elif (isinstance(cmd.gate, gates.SGate)):
                 self._command_buffer.append(cmd)
@@ -62,13 +61,11 @@ class OpenSurgeryExporter(BasicEngine):
                 self._command_buffer.append(cmd)
             elif (isinstance(cmd.gate, gates.ClassicalInstructionGate)):
                 continue
-
+            # elif(_GATE_TO_INFO[type(cmd.gate)](cmd.gate)[1] == "pi4"):
+            #     self._Tgate_count += 1
+            #     self._command_buffer.append(cmd)
             elif(_GATE_TO_INFO[type(cmd.gate)](cmd.gate)[1] == "pi4"):
-                self._Tgate_count += 1
-                self._command_buffer.append(cmd)
-
-            elif(_GATE_TO_INFO[type(cmd.gate)](cmd.gate)[1] == "pi4"):
-                self._Tgate_count += 1
+                # self._Tgate_count += 1
                 self._command_buffer.append(cmd)
             else:
                 raise TypeError("Non supported gate for the surface"
@@ -118,7 +115,7 @@ class OpenSurgeryExporter(BasicEngine):
                 if (isinstance(cmd.gate, gates.AllocateQubitGate)):
                     # already done in the beginning
                     continue
-                elif (isinstance(cmd.gate, projqext.projectq.ops.ParityMeasurementGate)):
+                elif (isinstance(cmd.gate, projqube.projectq.ops.ParityMeasurementGate)):
                     qubits = ""
                     for basis in cmd.gate._bases:
                         qubits += " " + str(self._remap[cmd.qubits[0][basis[0]].id])
