@@ -13,3 +13,5 @@ The namespace projqube is organised similarly to the projectq namespace from the
 For example, if the OpenSurgery exporter is needed, then ``projqube.projectq.cengines`` is the package for the ``OpenSurgeryExporter``
 
 More documentation: TODO
+
+For the simulation of CHP circuits see ``tests/chp_circuits_simulator.py``
