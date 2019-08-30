@@ -119,21 +119,36 @@ class OpenSurgeryExporter(BasicEngine):
                     qubits = ""
                     for basis in cmd.gate._bases:
                         qubits += " " + str(self._remap[cmd.qubits[0][basis[0]].id])
+
+                    # transform to all Z measurements
                     self._basis_trafo([cmd.gate._bases], cmd, fout)
+
                     if(len(cmd.gate._bases) == 1):
                         fout.write("MZ" + qubits + "\n")
                     else:
                         fout.write("MZZ" + qubits + "\n")
+
+                    # TODO: transform back with trafo_back?
+                    # self._basis_trafo_back([cmd.gate._bases], cmd, fout)
+
                     continue
                 elif (isinstance(cmd.gate, gates.HGate)):
                     fout.write("H " + str(self._remap[cmd.qubits[0][0].id])+"\n")
                 elif (isinstance(cmd.gate, gates.SGate)):
                     fout.write("S " + str(self._remap[cmd.qubits[0][0].id])+"\n")
                 elif (isinstance(cmd.gate, gates.DaggeredGate) and isinstance(cmd.gate._gate, gates.SGate)):
+                    # TODO: the S \dagger gate is (for the moment) treated like a normal S gate
                     fout.write("S " + str(self._remap[cmd.qubits[0][0].id])+"\n")
                 elif(_GATE_TO_INFO[type(cmd.gate)](cmd.gate)[1] == "pi4"):
+                    #
+                    # This is a pi/4 gate, but its basis is not necessarily Z
+                    #
                     info = _GATE_TO_INFO[type(cmd.gate)](cmd.gate)
+
+                    # transform to all Z
                     self._basis_trafo(info, cmd, fout)
+
+                    # at this point it is a Z rotation of pi/4
                     fout.write("NEED A\n")
                     qubits = ""
                     for basis in info[0]:
@@ -142,6 +157,9 @@ class OpenSurgeryExporter(BasicEngine):
                     fout.write("MX A\n")
                     fout.write("S ANCILLA\n") # TODO: add information for initialization
                     fout.write("MXX ANCILLA" + qubits + "\n")
+
+                    # done with the T gate (Z pi/4)
+                    # and back to whatever it was before the trafo
                     self._basis_trafo_back(info, cmd, fout)
 
                 else:

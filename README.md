@@ -1,4 +1,4 @@
-# <img src="projqube.png" alt="projqube" style="width:100px;"/>
+<img src="projqube.png" alt="projqube" height="100px"></img>
 
 # ProjQUBE_alpha is a collection of extensions to ProjectQ
 
