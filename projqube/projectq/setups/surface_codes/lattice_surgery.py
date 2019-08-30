@@ -12,7 +12,6 @@ def expand_rule_set_of_autoreplacer(engines):
 	"""
 	The ProjectQ AutoReplacer initialises a ruleset of known decompositions from the original namespace
 	However, the ProjQUBE extension has its own decompositions in projqube.project.setups.decompositions
-	Assume that AutoReplacer is the first in the list
 	:return:
 	"""
 
@@ -20,7 +19,6 @@ def expand_rule_set_of_autoreplacer(engines):
                                              		projectq.setups.decompositions,
 													projqube.projectq.setups.decompositions])
 	list_with_modified_autoreplacer = []
-	#copy the other engines
 
 	for engine in engines:
 		if isinstance(engine, AutoReplacer):

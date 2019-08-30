@@ -1,5 +1,3 @@
-from projqube.projectq.cengines import OpenSurgeryExporter
-
 import projectq
 import projectq.ops as gates
 import cmath
@@ -7,11 +5,11 @@ import os
 
 from projqube.projectq.ops import ParityMeasurementGate
 from projqube.projectq.setups.surface_codes import lattice_surgery
+from projqube.projectq.cengines import OpenSurgeryExporter, BasisRotation
 
 
 def test_simple1():
-    engines = lattice_surgery.OpenSurgeryExporterEngineList()
-    eng = projectq.MainEngine(engine_list = engines, backend=OpenSurgeryExporter(output="test_simple_case1"))
+    eng = projectq.MainEngine(engine_list = [BasisRotation()], backend=OpenSurgeryExporter(output="test_simple_case1"), verbose=True)
 
     qubit1 = eng.allocate_qubit()
     qubit2 = eng.allocate_qubit()
@@ -21,6 +19,7 @@ def test_simple1():
     ParityMeasurementGate("Z0 X1") | qubit1 + qubit2
 
     eng.flush()
+
     del qubit1
     del qubit2
 
@@ -64,7 +63,7 @@ def test_simple1():
 
 
 def test_simple2():
-    eng = projectq.MainEngine(engine_list = [], backend=OpenSurgeryExporter(output="test_simple_case2"))
+    eng = projectq.MainEngine(engine_list = [BasisRotation()], backend=OpenSurgeryExporter(output="test_simple_case2"))
 
     qubit1 = eng.allocate_qubit()
     qubit2 = eng.allocate_qubit()
@@ -81,11 +80,11 @@ def test_simple2():
         
         line = fin.readline()
         line = line.strip()
-        assert(line == "H 0")
+        assert(line == "S 0")
 
         line = fin.readline()
         line = line.strip()
-        assert(line == "S 0")
+        assert(line == "H 0")
 
         line = fin.readline()
         line = line.strip()
@@ -115,11 +114,11 @@ def test_simple2():
 
         line = fin.readline()
         line = line.strip()
-        assert(line == "S 0")
+        assert(line == "H 0")
 
         line = fin.readline()
         line = line.strip()
-        assert(line == "H 0")
+        assert(line == "S 0")
 
         line = fin.readline()
         line = line.strip()
